@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 
+MDK-ARM/Boot/STM32H7S7_keil_Boot
 # Object files
 *.o
 *.ko
