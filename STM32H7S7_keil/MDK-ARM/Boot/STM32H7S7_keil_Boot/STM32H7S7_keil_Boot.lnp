@@ -11,6 +11,7 @@
 "stm32h7s7_keil_boot\stm32h7s78_discovery_lcd.o"
 "stm32h7s7_keil_boot\stm32h7s78_discovery_xspi.o"
 "stm32h7s7_keil_boot\aps256xx.o"
+"stm32h7s7_keil_boot\font.o"
 "stm32h7s7_keil_boot\stm32h7rsxx_hal_cortex.o"
 "stm32h7s7_keil_boot\stm32h7rsxx_hal_rcc.o"
 "stm32h7s7_keil_boot\stm32h7rsxx_hal_rcc_ex.o"

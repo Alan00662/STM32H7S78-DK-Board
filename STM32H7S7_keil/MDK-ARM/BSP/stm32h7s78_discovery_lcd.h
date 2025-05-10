@@ -175,7 +175,28 @@ extern "C" {
 /**
   * @}
   */
+typedef enum
+{
 
+    TFT_FONT_12 = 0,         /* 12ºÅ×ÖÌå */
+    TFT_FONT_16,             /* 16ºÅ×ÖÌå */
+    TFT_FONT_24,             /* 24ºÅ×ÖÌå */
+    TFT_FONT_32,             /* 32ºÅ×ÖÌå */
+
+} tft_lcd_font_t;
+
+#define TFT_FONT_12_CHAR_WIDTH   6
+#define TFT_FONT_12_CHAR_HEIGHT  12
+#define TFT_FONT_12_CHAR_SIZE    12
+#define TFT_FONT_16_CHAR_WIDTH   8
+#define TFT_FONT_16_CHAR_HEIGHT  16
+#define TFT_FONT_16_CHAR_SIZE    16
+#define TFT_FONT_24_CHAR_WIDTH   12
+#define TFT_FONT_24_CHAR_HEIGHT  24
+#define TFT_FONT_24_CHAR_SIZE    36
+#define TFT_FONT_32_CHAR_WIDTH   16
+#define TFT_FONT_32_CHAR_HEIGHT  32
+#define TFT_FONT_32_CHAR_SIZE    64
 /** @defgroup STM32H7S78_DK_LCD_Exported_Types STM32H7S78_DK LCD Exported Types
   * @{
   */
@@ -270,6 +291,8 @@ int32_t BSP_LCD_FillRect(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32
 int32_t BSP_LCD_ReadPixel(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32_t *Color);
 int32_t BSP_LCD_WritePixel(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32_t Color);
 
+void LCD_Clear(uint32_t Color);
+void LCD_show_char(uint16_t x, uint16_t y, char ch, tft_lcd_font_t font, uint32_t color);
 /* LCD MX APIs */
 HAL_StatusTypeDef MX_LTDC_ConfigLayer(LTDC_HandleTypeDef *hltdc, uint32_t LayerIndex, MX_LTDC_LayerConfig_t *Config);
 HAL_StatusTypeDef MX_LTDC_ClockConfig(LTDC_HandleTypeDef *hltdc);

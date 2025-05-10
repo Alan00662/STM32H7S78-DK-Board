@@ -103,14 +103,9 @@ int main(void)
 
 	if(BSP_LCD_Init(0,0)==BSP_ERROR_NONE) debug_tx7("BSP_LCD_Init ok\n");
 	else debug_tx7("BSP_LCD_Init err\n");
-	BSP_LCD_Reload(0,BSP_LCD_RELOAD_VERTICAL_BLANKING);
-////	BSP_LCD_SetTransparency(0,0,200);
-//	if(BSP_LCD_SetLayerVisible(0,0,ENABLE)!=BSP_ERROR_NONE) debug_tx7("BSP_LCD_SetLayerVisible err\n");
- BSP_LCD_SetLayerAddress(0,0,LCD_LAYER_0_ADDRESS);
-// if(BSP_LCD_SetActiveLayer(0,0)!=BSP_ERROR_NONE) debug_tx7("BSP_LCD_SetActiveLayer err\n");
- if(BSP_LCD_SetLayerWindow(0,0,0,0,800,480)!=BSP_ERROR_NONE) debug_tx7("BSP_LCD_SetLayerWindow err\n");
-// if(BSP_LCD_SetColorKeying(0,0,LCD_COLOR_ARGB8888_RED)!=BSP_ERROR_NONE) debug_tx7("BSP_LCD_SetColorKeying err\n");
- if(BSP_LCD_FillRect(0,10, 10, 600, 400, LCD_COLOR_ARGB8888_ST_BLUE_DARK)!=BSP_ERROR_NONE) debug_tx7("BSP_LCD_DrawHLine err\n");
+	LCD_Clear(LCD_COLOR_ARGB8888_WHITE);
+
+LCD_show_char(10,10,'A',TFT_FONT_16,LCD_COLOR_ARGB8888_RED);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -120,9 +115,15 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-				HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
-		HAL_Delay(400);
+//				HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+//			LCD_Clear(LCD_COLOR_ARGB8888_WHITE);
+//		HAL_Delay(500);
+//		LCD_Clear(LCD_COLOR_ARGB8888_YELLOW);
+//				HAL_Delay(500);
+//		LCD_Clear(LCD_COLOR_ARGB8888_BLUE);
+//		HAL_Delay(500);
+//				LCD_Clear(LCD_COLOR_ARGB8888_RED);
+//		HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }

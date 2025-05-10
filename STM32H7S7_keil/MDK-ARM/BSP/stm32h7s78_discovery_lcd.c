@@ -86,6 +86,7 @@
 #include "stm32h7s78_discovery_lcd.h"
 #include "stm32h7s78_discovery_xspi.h"
 #include "usart.h"
+#include "font.h"
 /** @addtogroup BSP
   * @{
   */
@@ -1188,6 +1189,101 @@ int32_t BSP_LCD_FillRect(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32
   LL_FillBuffer(Instance, (uint32_t *)Xaddress, Width, Height, (Lcd_Ctx[Instance].XSize - Width), Color);
 
   return BSP_ERROR_NONE;
+}
+
+void LCD_Clear(uint32_t Color)
+{
+	BSP_LCD_FillRect(0,0, 0, RK050HR18_WIDTH, RK050HR18_HEIGHT, Color);
+}
+
+void LCD_show_char(uint16_t x, uint16_t y, char ch, tft_lcd_font_t font, uint32_t color)
+{
+    const uint8_t *ch_code;
+    uint8_t ch_width;
+    uint8_t ch_height;
+    uint8_t ch_size;
+    uint8_t ch_offset;
+    uint8_t byte_index;
+    uint8_t byte_code;
+    uint8_t bit_index;
+    uint8_t width_index = 0;
+    uint8_t height_index = 0;
+    
+    ch_offset = ch - ' ';
+    switch (font)
+    {
+        case TFT_FONT_12:
+        {
+            ch_code = asc2_1206[ch_offset];
+            ch_width = TFT_FONT_12_CHAR_WIDTH;
+            ch_height = TFT_FONT_12_CHAR_HEIGHT;
+            ch_size = TFT_FONT_12_CHAR_SIZE;
+            break;
+        }
+
+
+        case TFT_FONT_16:
+        {
+            ch_code = asc2_1608[ch_offset];
+            ch_width = TFT_FONT_16_CHAR_WIDTH;
+            ch_height = TFT_FONT_16_CHAR_HEIGHT;
+            ch_size = TFT_FONT_16_CHAR_SIZE;
+            break;
+        }
+
+
+        case TFT_FONT_24:
+        {
+            ch_code = asc2_2412[ch_offset];
+            ch_width = TFT_FONT_24_CHAR_WIDTH;
+            ch_height = TFT_FONT_24_CHAR_HEIGHT;
+            ch_size = TFT_FONT_24_CHAR_SIZE;
+            break;
+        }
+
+
+        case TFT_FONT_32:
+        {
+            ch_code = asc2_3216[ch_offset];
+            ch_width = TFT_FONT_32_CHAR_WIDTH;
+            ch_height = TFT_FONT_32_CHAR_HEIGHT;
+            ch_size = TFT_FONT_32_CHAR_SIZE;
+            break;
+        }
+
+        default:
+        {
+            return;
+        }
+    }
+    
+    if ((x + ch_width > RK050HR18_WIDTH) || (y + ch_height > RK050HR18_HEIGHT))
+    {
+        return;
+    }
+	
+//    TFT_Clear_char(x,y,x + ch_width,y + ch_height,WHITE); //清除局部背景颜色
+	
+    for (byte_index=0; byte_index<ch_size; byte_index++)
+    {
+        byte_code = ch_code[byte_index];
+        for (bit_index=0; bit_index<8; bit_index++)
+        {
+            if ((byte_code & 0x80) != 0)
+            {
+//                TFT_draw_point(x + width_index, y + height_index, color);
+							BSP_LCD_WritePixel(0,x + width_index, y + height_index, color);
+            }
+            height_index++;
+            if (height_index == ch_height)
+            {
+                height_index = 0;
+                width_index++;
+                break;
+            }
+            byte_code <<= 1;
+        }
+    }
 }
 
 /**

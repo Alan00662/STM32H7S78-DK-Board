@@ -612,6 +612,11 @@
               <FileType>1</FileType>
               <FilePath>..\Components\aps256xx\aps256xx.c</FilePath>
             </File>
+            <File>
+              <FileName>font.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\font.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
